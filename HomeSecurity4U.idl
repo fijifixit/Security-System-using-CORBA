@@ -1,0 +1,104 @@
+
+module ClientAndServer {
+
+		typedef sequence<string> logList;
+		typedef sequence<string> detailList;
+		typedef sequence<string> connected;
+
+     struct Image{
+	    long time;
+	    long date;
+	    string status;
+	    
+    };
+    
+    interface Camera {
+		void remoteReset();
+ 		Image CurrentImage(); 
+ 		readonly attribute string getName;
+ 		readonly attribute string getRoomName;
+ 		string currentStatus();
+ 		boolean raiseAlarm(in string deviceID, in string hubName, in string roomID);
+ 		void newCam(in string deviceID);
+ 		void addCam(in Camera cam);
+ 
+ 		
+    };
+    
+    interface HomeView {
+ 		void details(in string hubName, in string address, in string mobile);
+ 		void getMessage(in string deviceID,in string hubName);
+		void returnMessage(in string messageFromOffice);
+		void register(in string name, in string number);
+		void unRegister();
+		logList getLog();
+ 		
+    };
+    
+        
+    interface Sensor {
+		readonly attribute string getName;
+		readonly attribute string getRoomName;
+		void remoteReset();
+		string currentStatus();
+		boolean raiseAlarm(in string deviceID, in string hubName, in string roomID);
+		void newSensor(in string deviceID);
+ 		void addSensor(in Sensor sen);
+    };
+		
+		
+    interface HomeHub {
+        boolean call_alarm(in string deviceID, in string hubName, in string roomID);
+        string alarm(in string deviceID, in string hubName, in string roomID);
+        void toggleOff(in string device);
+        void toggleOn(in string device);
+        void addCam(in Camera newCam);
+        void addSens(in Sensor newSensor);
+        void resetCam(in string camName);
+        void resetSensor(in string camName);
+        void resetCamAlarm(in string deviceID);
+        void resetSensorAlarm(in string deviceID);
+        void addCamArray(in string deviceID);
+        void newCam(in string deviceID);
+        void addSensorArray(in string deviceID);
+        void newSensor(in string deviceID);
+        readonly attribute string getName;
+        logList getLog();
+        void connectHomeView(in string homeViewID);
+        void sendText(in string deviceID, in string roomID);
+        string returnCamStatus(in string camName);
+        string returnSensorStatus(in string sensorName);
+        void register(in string name, in string number);
+        void Unregister();
+        void homeHubConnect(in string hubName);
+        void homeHubAdded(in string hubName);
+        void details(in string hubName, in string address, in string mobile);
+   
+        
+       
+    };
+
+    interface RegionalOffice {
+    exception connectError{};
+		string alarmRaised(in string deviceID, in string hubName, in string roomID);
+		void cameraOff(in string deviceID);
+		void cameraOn(in string deviceID);
+		void cameraAdded(in string deviceID, in string hubName, in string roomID);
+		void sensorAdded(in string deviceID, in string hubName,in string roomID);
+		void homeHubAdded(in string hubID);
+		void resetAlarm(in string deviceID, in string hubName);
+		void homeHubConnect(in string hubName) raises(connectError);
+		void details(in string hubName, in string address, in string mobile);
+		void register(in string name, in string number, in string hubName);
+		void unRegister(in string hubName);
+		void resetC(in string camName, in long value);
+		void resetS(in string sensorName, in long value);
+		string camStatus(in string camName, in long value);
+		string sensorStatus(in string sensorName, in long value);
+		logList getLog(in long value);
+		
+		
+	
+    };
+
+};

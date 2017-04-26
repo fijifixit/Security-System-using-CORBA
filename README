@@ -1,0 +1,19 @@
+
+1. compile IDL
+
+	idlj -fall HomeSecurity4U.idl
+
+2. Start the naming service
+	
+	tnameserv -ORBInitialPort 1050
+	
+3. Make sure the orb arguments have been added to the program arguments
+
+	-ORBInitialPort 1050
+	
+4. Run the regional office, homehub, homeview the camera or sensor
+	regional office must be open before homehub. homehub must be open before homeview.
+	homeview is optional and does not have to be opened.
+	
+
+
